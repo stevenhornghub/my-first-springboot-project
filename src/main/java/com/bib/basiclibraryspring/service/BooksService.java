@@ -16,7 +16,6 @@ public interface BooksService {
 
     Books queryBookById(Long id);
 
-    Books queryBookByName(String name);
 
     List<Books> queryAllBook();
 

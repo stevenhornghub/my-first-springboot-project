@@ -10,10 +10,9 @@ import java.util.List;
 @Service
 public class BooksServiceImpl implements BooksService {
 
-    @Autowired
-    private BooksMapper booksMapper;
+    private final BooksMapper booksMapper;
 
-    public void setBooksMapper(BooksMapper booksMapper) {
+    public BooksServiceImpl(BooksMapper booksMapper) {
         this.booksMapper = booksMapper;
     }
 
@@ -36,11 +35,7 @@ public class BooksServiceImpl implements BooksService {
     public Books queryBookById(Long id) {
 
         return booksMapper.queryBookById(id);
-    }
-    @Override
-    public Books queryBookByName(String name) {
 
-        return booksMapper.queryBookByName(name);
     }
     @Override
     public List<Books> queryAllBook() {

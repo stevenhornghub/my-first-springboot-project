@@ -17,14 +17,11 @@ public interface BooksMapper {
     @Delete("DELETE FROM books WHERE id=#{id}")
     Long deleteBookById(@Param("id") Long id);
 
-    @Update("UPDATE books SET name=#{name}, description=#{description}, genre=#{genre}, author#{author} WHERE id=#{id}")
+    @Update("UPDATE books SET name=#{name}, description=#{description}, genre=#{genre}, author#{author})" + "(WHERE id=#{id}")
     Long updateBook(Books books);
 
     @Select("SELECT * FROM books WHERE id=#{id}")
     Books queryBookById(@Param("id") Long id);
-
-    @Select("SELECT * FROM books WHERE name=#{name}")
-    Books queryBookByName(@Param("name") String name);
 
     @Select("SELECT * FROM books")
     List<Books> queryAllBook();

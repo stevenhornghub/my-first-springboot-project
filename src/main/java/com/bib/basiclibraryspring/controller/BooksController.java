@@ -15,7 +15,7 @@ public class BooksController {
     @Autowired
     private BooksService booksService;
 
-    @RequestMapping("/allBook")
+    @GetMapping("/allBook")
     public String list(@RequestBody Model model) {
         List<Books> list = booksService.queryAllBook();
         model.addAttribute("list", list);
@@ -38,12 +38,12 @@ public class BooksController {
         return "redirect:/book/allBook";
     }
 
-    @PostMapping("/toUpdate/{id}/")
-    public String toUpdate(@RequestBody Long id, Model model) {
+    @PostMapping("/toUpdate/{id}")
+    public String toUpdate(@RequestBody Books books) {
 
-        Books books = booksService.queryBookById(id);
-        model.addAttribute("Qbooks", books);
-        return "UpdateBook";
+        System.out.println("updateBook" + books);
+        booksService.updateBook(books);
+        return "redirect:/book/allBook";
     }
 
 
@@ -66,7 +66,7 @@ public class BooksController {
 
 
     @DeleteMapping("/DeleteBook/{id}")
-    public String deleteBookById(@RequestBody Long id) {
+    public String deleteBookById( Long id) {
 
         booksService.deleteBookById(id);
         return "redirect:/book/allBook";
@@ -74,9 +74,9 @@ public class BooksController {
     }
         // Query book function
         @GetMapping("/queryBook")
-        public String queryBook(Model model, String queryBookName) {
+        public String queryBook(Model model, Long queryBookById) {
 
-            Books books = booksService.queryBookByName(queryBookName);
+            Books books = booksService.queryBookById(queryBookById);
             List<Books> list = new ArrayList<Books>();
             list.add(books);
             model.addAttribute("list", list);
