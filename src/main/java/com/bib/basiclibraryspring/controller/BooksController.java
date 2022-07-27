@@ -4,10 +4,7 @@ import com.bib.basiclibraryspring.model.Books;
 import com.bib.basiclibraryspring.service.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +15,12 @@ public class BooksController {
     @Autowired
     private BooksService booksService;
 
-//    @RequestMapping("/allBook")
-//    public String list(Model model) {
-//        List<Books> list = booksService.queryAllBook();
-//        model.addAttribute("list", list);
-//        return "allBook";
-//    }
+    @RequestMapping("/allBook")
+    public String list(@RequestBody Model model) {
+        List<Books> list = booksService.queryAllBook();
+        model.addAttribute("list", list);
+        return "allBook";
+    }
 
     //HTTP PROTOCOL
     @RequestMapping("/toAddBook")
@@ -41,8 +38,8 @@ public class BooksController {
         return "redirect:/book/allBook";
     }
 
-    @RequestMapping("/toUpdate")
-    public String toUpdate(Long id, Model model) {
+    @PostMapping("/toUpdate/{id}/")
+    public String toUpdate(@RequestBody Long id, Model model) {
 
         Books books = booksService.queryBookById(id);
         model.addAttribute("Qbooks", books);
@@ -50,8 +47,8 @@ public class BooksController {
     }
 
 
-    @RequestMapping("/Updatebook")
-    public String Updatebook(Books books) {
+    @PostMapping("/Updatebook/{id}")
+    public String updateBook(@RequestBody Books books) {
 
         System.out.println("addBook" + books);
         booksService.updateBook(books);
@@ -59,8 +56,8 @@ public class BooksController {
     }
 
 
-    @RequestMapping("/toDelete")
-    public String toDelete(Long id, Model model) {
+    @DeleteMapping("/toDelete/{id}")
+    public String toDelete(@RequestBody Long id, Model model) {
 
         Books books = booksService.queryBookById(id);
         model.addAttribute("books", books);
@@ -68,15 +65,15 @@ public class BooksController {
     }
 
 
-    @RequestMapping("/DeleteBook")
-    public String DeleteBook(Long id) {
+    @DeleteMapping("/DeleteBook/{id}")
+    public String deleteBookById(@RequestBody Long id) {
 
         booksService.deleteBookById(id);
         return "redirect:/book/allBook";
 
     }
         // Query book function
-        @RequestMapping("/queryBook")
+        @GetMapping("/queryBook")
         public String queryBook(Model model, String queryBookName) {
 
             Books books = booksService.queryBookByName(queryBookName);

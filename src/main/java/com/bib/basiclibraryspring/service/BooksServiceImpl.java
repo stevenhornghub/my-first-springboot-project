@@ -32,14 +32,19 @@ public class BooksServiceImpl implements BooksService {
 
         return booksMapper.updateBook(books);
     }
-
+    @Override
     public Books queryBookById(Long id) {
 
         return booksMapper.queryBookById(id);
     }
-
+    @Override
     public Books queryBookByName(String name) {
 
         return booksMapper.queryBookByName(name);
+    }
+    @Override
+    public List<Books> queryAllBook() {
+
+        return booksMapper.queryAllBook();
     }
 }
