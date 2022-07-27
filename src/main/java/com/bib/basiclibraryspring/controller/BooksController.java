@@ -4,6 +4,7 @@ import com.bib.basiclibraryspring.model.Books;
 import com.bib.basiclibraryspring.service.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,7 @@ public class BooksController {
 //        return "allBook";
 //    }
 
+    //HTTP PROTOCOL
     @RequestMapping("/toAddBook")
     public String toAddBook() {
 
@@ -32,7 +34,7 @@ public class BooksController {
 
 
     @RequestMapping("/addBook")
-    public String addBook(Books books) {
+    public String addBook(@RequestBody Books books) {
 
         System.out.println("addBook" + books);
         booksService.addBook(books);

@@ -3,10 +3,12 @@ package com.bib.basiclibraryspring.mapper;
 import com.bib.basiclibraryspring.model.Books;
 import org.apache.ibatis.annotations.*;
 
-import java.util.List;
 
+@Mapper
 public interface BooksMapper {
 
+    @Insert("INSERT INTO books(name, description, genre, author) " +
+            " VALUES (#{name}, #{description}, #{genre}, #{author})")
     Long addBook(Books books);
 
     Long deleteBookById(@Param("id") Long id);
