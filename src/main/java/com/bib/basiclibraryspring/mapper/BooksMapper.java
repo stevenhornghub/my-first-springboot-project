@@ -19,8 +19,8 @@ public interface BooksMapper {
     Long updateBook(Books books);
 
 
-    @Delete("DELETE FROM library.books WHERE id=#{id}")
-    Long deleteBookById(Books books);
+    @Delete("DELETE FROM library.books WHERE id=#{bookId}")
+    Long deleteBookById(Long bookId);
 
 
     @Select("SELECT * FROM books WHERE id=#{id}")

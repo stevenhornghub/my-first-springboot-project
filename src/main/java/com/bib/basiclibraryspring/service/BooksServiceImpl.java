@@ -1,5 +1,6 @@
 package com.bib.basiclibraryspring.service;
 
+import com.bib.basiclibraryspring.exceptions.CouldNotDeleteException;
 import com.bib.basiclibraryspring.mapper.BooksMapper;
 import com.bib.basiclibraryspring.model.Books;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,10 @@ public class BooksServiceImpl implements BooksService {
         return booksMapper.addBook(books);
     }
     @Override
-    public Long deleteBookById(Books books) {
-
-        return booksMapper.deleteBookById(books);
+    public void deleteBookById(Long bookId) {
+        Long numberOfRowAffected = booksMapper.deleteBookById(bookId);
+        if(numberOfRowAffected != 1)
+            throw new CouldNotDeleteException(String.format("A book with id [%d] does not exist therefore, not deleted!", bookId));
     }
     @Override
     public Long updateBook(Books books) {
