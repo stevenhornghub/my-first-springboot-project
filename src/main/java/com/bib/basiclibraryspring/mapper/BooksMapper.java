@@ -14,15 +14,22 @@ public interface BooksMapper {
             " VALUES (#{name}, #{description}, #{genre}, #{author})")
     Long addBook(Books books);
 
-    @Delete("DELETE FROM books WHERE id=#{id}")
-    Long deleteBookById(@Param("id") Long id);
 
-    @Update("UPDATE books SET name=#{name}, description=#{description}, genre=#{genre}, author#{author})" + "WHERE (id=#{id})")
+    @Update("UPDATE library.books SET name=#{name}, description=#{description}, genre=#{genre}, author=#{author} WHERE id=#{id}")
     Long updateBook(Books books);
+
+
+    @Delete("DELETE FROM library.books WHERE id=#{id}")
+    Long deleteBookById(Books books);
+
 
     @Select("SELECT * FROM books WHERE id=#{id}")
     Books queryBookById(@Param("id") Long id);
 
     @Select("SELECT * FROM books")
     List<Books> queryAllBook();
+
+    @Select("SELECT * FROM library.books WHERE description LIKE '%' #{description} '%' OR name LIKE '%' #{name} '%' OR genre LIKE '%' #{genre} '%' OR author LIKE '%' #{author} '%'")
+    List<Books> searchAllColumns(String word);
+
 }

@@ -9,13 +9,15 @@ public interface BooksService {
 
     Long addBook(Books books);
 
-    Long deleteBookById(Long id);
-
     Long updateBook(Books books);
+
+    Long deleteBookById(Books id);
 
     Books queryBookById(Long id);
 
     List<Books> queryAllBook();
+
+    List<Books> searchAllColumns(String word);
 
 
 }

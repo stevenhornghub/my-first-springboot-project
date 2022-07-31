@@ -2,13 +2,16 @@ package com.bib.basiclibraryspring.controller;
 
 import com.bib.basiclibraryspring.model.Books;
 import com.bib.basiclibraryspring.service.BooksService;
-import org.springframework.ui.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/book")
 public class BooksController {
 
     private final BooksService booksService;
@@ -17,74 +20,51 @@ public class BooksController {
         this.booksService = booksService;
     }
 
-    @GetMapping("/allBook")
-    public String list(Model model) {
+    @GetMapping("/list")
+    public ResponseEntity<List<Books>>queryAllBook(){
         List<Books> list = booksService.queryAllBook();
-        model.addAttribute("list", list);
-        return "allBook";
-    }
+        ResponseEntity<List<Books>>books= new ResponseEntity<>(list, HttpStatus.OK);
+        return books;
 
-    //HTTP PROTOCOL
-    @RequestMapping("/toAddBook")
-    public String toAddBook() {
-
-        return "addBook";
     }
 
 
-    @RequestMapping("/addBook")
-    public String addBook(@RequestBody Books books) {
+    @PostMapping("/new")
+    public Books addBook(@RequestBody Books books) {
 
-        System.out.println("addBook" + books);
+        Logger logger = LoggerFactory.getLogger(BooksController.class);
+        logger.info("addBook" + books);
         booksService.addBook(books);
-        return "redirect:/book/allBook";
+        return books;
     }
 
-    @PostMapping("/toUpdate/{id}")
-    public String toUpdate(@RequestBody Books books) {
-
-        System.out.println("updateBook" + books);
+    @PostMapping("/update/{id}")
+    public Books updateBook(@PathVariable(value = "id") Long id,
+                                            @RequestBody Books books) {
+        //booksService.queryBookById(id);
+        Logger logger = LoggerFactory.getLogger(BooksController.class);
+        logger.info("update" + books);
+        books.setId(id);
         booksService.updateBook(books);
-        return "redirect:/book/allBook";
+        return books;
     }
 
 
-    @PostMapping("/Updatebook/{id}")
-    public String updateBook(@RequestBody Books books) {
-
-        System.out.println("updateBook" + books);
-        booksService.updateBook(books);
-        return "redirect:/book/allBook";
-    }
-
-
-    @DeleteMapping("/toDelete/{id}")
-    public String toDelete(Long id, Model model) {
-
-        Books books = booksService.queryBookById(id);
-        model.addAttribute("books", books);
-        return "DeleteBook";
-    }
-
-
-    @DeleteMapping("/DeleteBook/{id}")
-    public String deleteBookById(Long id) {
-
-        booksService.deleteBookById(id);
-        return "redirect:/book/allBook";
+    @DeleteMapping("/delete/{id}")
+    public String deleteBookById(@PathVariable (value = "id") Long id,
+                                 @RequestBody Books books) {
+        Logger logger = LoggerFactory.getLogger(BooksController.class);
+        logger.info("delete" + books);
+        books.setId(id);
+        booksService.deleteBookById(books);
+        return "book deleted";
 
     }
 
-    // Query book function
-    @GetMapping("/queryBook")
-    public String queryBook(Model model, Long queryBookById) {
+    @GetMapping("/search/{word}")
+    public List<Books> deleteBookById(@PathVariable (value = "word") String word) {
+        List<Books> list = booksService.searchAllColumns(word);
+        return list;
 
-        Books books = booksService.queryBookById(queryBookById);
-        List<Books> list = new ArrayList<Books>();
-        list.add(books);
-        model.addAttribute("list", list);
-        return "allBook";
     }
-
-
 }

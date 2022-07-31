@@ -13,6 +13,7 @@ public class BooksServiceImpl implements BooksService {
 
     public BooksServiceImpl(BooksMapper booksMapper) {
         this.booksMapper = booksMapper;
+
     }
 
     @Override
@@ -20,29 +21,29 @@ public class BooksServiceImpl implements BooksService {
 
         return booksMapper.addBook(books);
     }
-
     @Override
-    public Long deleteBookById(Long id) {
+    public Long deleteBookById(Books books) {
 
-        return booksMapper.deleteBookById(id);
+        return booksMapper.deleteBookById(books);
     }
-
     @Override
     public Long updateBook(Books books) {
 
         return booksMapper.updateBook(books);
     }
-
     @Override
     public Books queryBookById(Long id) {
 
         return booksMapper.queryBookById(id);
 
     }
+        @Override
+        public List<Books> queryAllBook() {
+        return booksMapper.queryAllBook();
+    }
 
     @Override
-    public List<Books> queryAllBook() {
-
-        return booksMapper.queryAllBook();
+    public List<Books> searchAllColumns(String word) {
+        return booksMapper.searchAllColumns(word);
     }
 }
