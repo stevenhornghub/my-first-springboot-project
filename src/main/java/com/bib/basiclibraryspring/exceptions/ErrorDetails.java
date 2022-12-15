@@ -1,7 +1,9 @@
 package com.bib.basiclibraryspring.exceptions;
 
 import java.util.Date;
-
+/**
+ * @author Steven Horng
+ */
 public class ErrorDetails {
     private Date timestamp;
     private String message;

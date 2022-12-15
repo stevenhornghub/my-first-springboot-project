@@ -4,6 +4,9 @@ import com.bib.basiclibraryspring.model.Books;
 
 import java.util.List;
 
+/**
+ * @author Steven Horng
+ */
 public interface BooksService {
 
 

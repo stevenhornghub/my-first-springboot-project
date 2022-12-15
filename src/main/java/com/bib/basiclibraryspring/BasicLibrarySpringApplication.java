@@ -6,6 +6,9 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author Steven Horng
+ */
 @SpringBootApplication(scanBasePackages = "com.bib.basiclibraryspring")
 @MapperScan("com.bib.basiclibraryspring.mapper")
 public class BasicLibrarySpringApplication {

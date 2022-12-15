@@ -2,7 +2,9 @@ package com.bib.basiclibraryspring.db;
 
 import ch.vorburger.exec.ManagedProcessException;
 import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
-
+/**
+ * @author Steven Horng
+ */
 public class LibraryDatabase {
 
     private static MariaDB4jSpringService db;

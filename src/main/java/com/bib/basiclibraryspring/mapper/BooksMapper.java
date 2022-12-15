@@ -5,7 +5,9 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-
+/**
+ * @author Steven Horng
+ */
 @Mapper
 public interface BooksMapper {
 
