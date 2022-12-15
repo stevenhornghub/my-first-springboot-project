@@ -30,7 +30,7 @@ public class BooksController {
 
 
     @PostMapping("/new")
-    public Books addBook(@RequestBody Books books) {
+    public Books addBook( @RequestBody Books books) {
         log.info("addBook: " + books);
         booksService.addBook(books);
         return books;
@@ -48,10 +48,10 @@ public class BooksController {
 
 
     @DeleteMapping("/delete/{id}")
-    public String deleteBookById(@PathVariable(value = "id") Long id) {
+    public Books deleteBookById(@PathVariable(value = "id") Long id, Books books) {
         log.info("book id: " + id);
         booksService.deleteBookById(id);
-        return "book deleted";
+        return books;
     }
 
     @GetMapping("/search/{word}")

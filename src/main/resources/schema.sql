@@ -1,6 +1,6 @@
 use library;
 
-create table books
+create table book
 (
     id  int auto_increment not null
         primary key,

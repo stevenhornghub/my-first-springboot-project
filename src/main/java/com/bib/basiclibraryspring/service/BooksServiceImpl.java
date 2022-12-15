@@ -30,6 +30,9 @@ public class BooksServiceImpl implements BooksService {
     }
     @Override
     public Long updateBook(Books books) {
+        Long numberOfRowAffected = booksMapper.updateBook(books);
+        if(numberOfRowAffected != 1)
+            throw new CouldNotDeleteException(String.format("A book with id [%d] does not exist therefore, not updated!", books));
 
         return booksMapper.updateBook(books);
     }

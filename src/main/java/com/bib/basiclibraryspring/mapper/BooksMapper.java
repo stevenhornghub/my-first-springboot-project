@@ -10,26 +10,26 @@ import java.util.List;
 public interface BooksMapper {
 
 
-    @Insert("INSERT INTO books(name, description, genre, author) " +
+    @Insert("INSERT INTO book(name, description, genre, author) " +
             " VALUES (#{name}, #{description}, #{genre}, #{author})")
     Long addBook(Books books);
 
 
-    @Update("UPDATE library.books SET name=#{name}, description=#{description}, genre=#{genre}, author=#{author} WHERE id=#{id}")
+    @Update("UPDATE library.book SET name=#{name}, description=#{description}, genre=#{genre}, author=#{author} WHERE id=#{id}")
     Long updateBook(Books books);
 
 
-    @Delete("DELETE FROM library.books WHERE id=#{bookId}")
+    @Delete("DELETE FROM library.book WHERE id=#{bookId}")
     Long deleteBookById(Long bookId);
 
 
-    @Select("SELECT * FROM books WHERE id=#{id}")
+    @Select("SELECT * FROM book WHERE id=#{id}")
     Books queryBookById(@Param("id") Long id);
 
-    @Select("SELECT * FROM books")
+    @Select("SELECT * FROM book")
     List<Books> queryAllBook();
 
-    @Select("SELECT * FROM library.books WHERE description LIKE '%' #{description} '%' OR name LIKE '%' #{name} '%' OR genre LIKE '%' #{genre} '%' OR author LIKE '%' #{author} '%'")
+    @Select("SELECT * FROM library.book WHERE description LIKE '%' #{description} '%' OR name LIKE '%' #{name} '%' OR genre LIKE '%' #{genre} '%' OR author LIKE '%' #{author} '%'")
     List<Books> searchAllColumns(String word);
 
 }
